@@ -5,3 +5,6 @@ services:
     public: true
 
   MintwareDe\NativeCronBundle\DependencyInjection\CronJobRegistry:
+
+  MintwareDe\NativeCronBundle\Command\:
+    resource: '../src/Command'

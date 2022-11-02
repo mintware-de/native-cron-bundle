@@ -6,6 +6,7 @@ namespace MintwareDe\NativeCronBundle;
 
 use MintwareDe\NativeCronBundle\Attribute\CronJob;
 use MintwareDe\NativeCronBundle\DependencyInjection\Compiler\CronJobRegistryCompilerPass;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -32,10 +33,16 @@ class MintwareDeNativeCronBundle extends AbstractBundle
                 CronJob $attribute,
                 \Reflector $reflector,
             ): void {
+                $command = '';
+                if ($reflector instanceof \ReflectionClass && $reflector->isSubclassOf(Command::class)) {
+                    $command = call_user_func([$reflector->getName(), 'getDefaultName']);
+                }
+
                 $definition->addTag(CronJob::CONTAINER_TAG, [
                     'name' => $attribute->getName(),
                     'execute_at' => $attribute->getExecuteAt(),
                     'arguments' => json_encode($attribute->getArguments()),
+                    'command' => $command,
                 ]);
             }
         );

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace MintwareDe\NativeCronBundle\Tests;
 
 use MintwareDe\NativeCronBundle\Attribute\CronJob;
+use MintwareDe\NativeCronBundle\Command\ListCronJobsCommand;
 use MintwareDe\NativeCronBundle\DependencyInjection\Compiler\CronJobRegistryCompilerPass;
 use MintwareDe\NativeCronBundle\MintwareDeNativeCronBundle;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 class MintwareDeNativeCronBundleTest extends TestCase
@@ -45,6 +45,7 @@ class MintwareDeNativeCronBundleTest extends TestCase
                 'name' => 'foo_cron_job',
                 'execute_at' => '0 0 * * *',
                 'arguments' => json_encode(['foo' => 'bar']),
+                'command' => 'mw:cron:list'
             ]);
 
         $mockCronJob = self::createMock(CronJob::class);
@@ -63,7 +64,7 @@ class MintwareDeNativeCronBundleTest extends TestCase
             ->method('getExecuteAt')
             ->willReturn('0 0 * * *');
 
-        $mockReflector = self::createMock(\ReflectionClass::class);
+        $mockReflector = new \ReflectionClass(ListCronJobsCommand::class);
 
         $mockContainerBuilder
             ->expects(self::atLeastOnce())

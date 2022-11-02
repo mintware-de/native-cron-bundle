@@ -23,7 +23,7 @@ class CronJobRegistryCompilerPass implements CompilerPassInterface
                     $first['name'],
                     $first['execute_at'],
                     $first['arguments'],
-                    $id,
+                    $first['command'],
                 ]
             );
         }
