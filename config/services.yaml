@@ -1,0 +1,7 @@
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+    public: true
+
+  MintwareDe\NativeCronBundle\DependencyInjection\CronJobRegistry:
