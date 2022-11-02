@@ -8,3 +8,13 @@ services:
 
   MintwareDe\NativeCronBundle\Command\:
     resource: '../src/Command'
+    exclude:
+      - '../src/Command/InstallCronJobsCommand.php'
+
+  MintwareDe\NativeCronBundle\Command\InstallCronJobsCommand:
+    arguments: ['%kernel.project_dir%']
+
+  MintwareDe\NativeCron\CrontabManager:
+
+  MintwareDe\NativeCron\Filesystem\FileHandlerInterface:
+    class: MintwareDe\NativeCron\Filesystem\FileHandler
