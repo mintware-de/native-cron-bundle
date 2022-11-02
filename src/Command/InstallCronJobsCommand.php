@@ -13,7 +13,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand('mw:cron:install')]
+#[AsCommand(
+    name: 'mw:cron:install',
+    description: 'Install the existing cron jobs.'
+)]
 class InstallCronJobsCommand extends Command
 {
     public function __construct(
@@ -37,7 +40,7 @@ class InstallCronJobsCommand extends Command
             $crontab->add(
                 new CronJobLine(
                     sprintf(
-                        '%s root %s %s app:cron:run %s',
+                        '%s root %s %s mw:cron:run %s',
                         $cronJob->getAnnotation()->getExecuteAt(),
                         PHP_BINARY,
                         $consoleFile,

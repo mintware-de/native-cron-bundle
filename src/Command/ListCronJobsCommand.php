@@ -11,7 +11,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand('mw:cron:list')]
+#[AsCommand(
+    name: 'mw:cron:list',
+    description: 'List all existing cron jobs.'
+)]
 class ListCronJobsCommand extends Command
 {
     public function __construct(
