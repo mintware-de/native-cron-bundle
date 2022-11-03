@@ -41,8 +41,9 @@ class InstallCronJobsCommand extends Command
             $crontab->add(
                 new CronJobLine(
                     sprintf(
-                        '%s root %s %s mw:cron:run %s',
+                        '%s %s %s %s mw:cron:run %s',
                         $cronJob->getAnnotation()->getExecuteAt(),
+                        $cronJob->getAnnotation()->getUser(),
                         PHP_BINARY,
                         $consoleFile,
                         $cronJob->getAnnotation()->getName(),

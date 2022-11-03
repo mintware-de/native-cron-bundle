@@ -32,7 +32,8 @@ class ListCronJobsCommandTest extends TestCase
             'foo',
             '0 0 * * *',
             '{"a":"b"}',
-            'MyCommand'
+            'MyCommand',
+            'root'
         );
 
         $commandTester = new CommandTester($this->command);

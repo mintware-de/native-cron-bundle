@@ -38,7 +38,8 @@ class InstallCronJobsCommandTest extends TestCase
             'app_cron',
             '0 0 * * *',
             '{"a":"b"}',
-            'MyCommand'
+            'MyCommand',
+            'www-data'
         );
 
         $mockCrontab = self::createMock(Crontab::class);
@@ -62,6 +63,8 @@ class InstallCronJobsCommandTest extends TestCase
             ->method('add')
             ->with(
                 self::callback(function ($x) {
+                    self::assertEquals('www-data', $x->getUser());
+
                     return $x instanceof CronJobLine
                         && str_contains($x->getCommand(), PHP_BINARY.' /root/bin/console mw:cron:run app_cron')
                         && $x->getDateTimeDefinition()->build() === '0 0 * * *';

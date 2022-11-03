@@ -45,7 +45,8 @@ class MintwareDeNativeCronBundleTest extends TestCase
                 'name' => 'foo_cron_job',
                 'execute_at' => '0 0 * * *',
                 'arguments' => json_encode(['foo' => 'bar']),
-                'command' => 'mw:cron:list'
+                'command' => 'mw:cron:list',
+                'user' => 'root'
             ]);
 
         $mockCronJob = self::createMock(CronJob::class);
@@ -63,6 +64,11 @@ class MintwareDeNativeCronBundleTest extends TestCase
             ->expects(self::once())
             ->method('getExecuteAt')
             ->willReturn('0 0 * * *');
+
+        $mockCronJob
+            ->expects(self::once())
+            ->method('getUser')
+            ->willReturn('root');
 
         $mockReflector = new \ReflectionClass(ListCronJobsCommand::class);
 

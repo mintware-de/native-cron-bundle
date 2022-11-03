@@ -48,7 +48,7 @@ class CronJobRegistry implements \Iterator
         $this->index = 0;
     }
 
-    public function register(string $name, string $executeAt, string $jsonArguments, string $command): void
+    public function register(string $name, string $executeAt, string $jsonArguments, string $command, string $user): void
     {
         if ($this->hasCronJob($name)) {
             throw new \RuntimeException(sprintf('A cron job with the name %s is already registered.', $name));
@@ -62,7 +62,8 @@ class CronJobRegistry implements \Iterator
             new CronJob(
                 $name,
                 $executeAt,
-                $arguments
+                $arguments,
+                $user
             ),
             $command,
         );

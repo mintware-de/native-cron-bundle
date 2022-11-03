@@ -20,7 +20,8 @@ class CronJob
         private readonly string $name,
         private readonly string $executeAt,
         /** @var array<string, mixed> */
-        private readonly array $arguments = []
+        private readonly array $arguments = [],
+        private readonly string $user = 'root',
     ) {
     }
 
@@ -40,5 +41,10 @@ class CronJob
     public function getArguments(): array
     {
         return $this->arguments;
+    }
+
+    public function getUser(): string
+    {
+        return $this->user;
     }
 }

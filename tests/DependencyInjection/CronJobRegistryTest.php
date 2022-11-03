@@ -26,17 +26,17 @@ class CronJobRegistryTest extends TestCase
 
     public function testRegisterCronJobShouldFailForDuplicateName(): void
     {
-        $this->registry->register('foo_bar', '', '{}', Command::class);
+        $this->registry->register('foo_bar', '', '{}', Command::class, 'root');
 
         self::expectException(\RuntimeException::class);
         self::expectExceptionMessage('A cron job with the name foo_bar is already registered.');
-        $this->registry->register('foo_bar', '', '{}', Command::class);
+        $this->registry->register('foo_bar', '', '{}', Command::class, 'root');
     }
 
     public function testRegisterCronJob(): void
     {
         self::assertCount(0, $this->registry);
-        $this->registry->register('foo_bar', '0 0 * * *', '{}', Command::class);
+        $this->registry->register('foo_bar', '0 0 * * *', '{}', Command::class, 'root');
         self::assertCount(1, $this->registry);
         self::assertTrue($this->registry->hasCronJob('foo_bar'));
         $fooBar = $this->registry->getCronJob('foo_bar');

@@ -38,12 +38,14 @@ class CronJobRegistryCompilerPassTest extends TestCase
                     'execute_at' => '0 0 * * *',
                     'arguments' => json_encode(['arg1' => 'foo']),
                     'command' => 'MyCommand',
+                    'user' => 'foo',
                 ]],
                 'MyCommand2' => [[
                     'name' => 'my_cron_job2',
                     'execute_at' => '0 1 * * *',
                     'arguments' => json_encode(['arg2' => 'foo']),
                     'command' => 'MyCommand2',
+                    'user' => 'bar',
                 ]],
             ]);
 
@@ -58,6 +60,7 @@ class CronJobRegistryCompilerPassTest extends TestCase
                         '0 0 * * *',
                         json_encode(['arg1' => 'foo']),
                         'MyCommand',
+                        'foo',
                     ],
                 ],
                 [
@@ -67,6 +70,7 @@ class CronJobRegistryCompilerPassTest extends TestCase
                         '0 1 * * *',
                         json_encode(['arg2' => 'foo']),
                         'MyCommand2',
+                        'bar',
                     ],
                 ],
             );

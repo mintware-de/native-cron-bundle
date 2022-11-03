@@ -43,6 +43,7 @@ class MintwareDeNativeCronBundle extends AbstractBundle
                     'execute_at' => $attribute->getExecuteAt(),
                     'arguments' => json_encode($attribute->getArguments()),
                     'command' => $command,
+                    'user' => $attribute->getUser(),
                 ]);
             }
         );
