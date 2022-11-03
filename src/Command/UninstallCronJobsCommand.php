@@ -41,7 +41,7 @@ class UninstallCronJobsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->title('Uninstall cron jobs');
         $io->warning('The following cron jobs will be uninstalled:');
-        $io->listing(array_map(fn ($x) => $x->build(), $removed));
+        $io->writeln(implode("\n", array_map(fn ($x) => $x->build(), $removed)));
 
         if (!$io->confirm('Confirm uninstall?')) {
             return Command::SUCCESS;
