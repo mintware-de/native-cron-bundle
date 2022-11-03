@@ -6,17 +6,17 @@ namespace MintwareDe\NativeCronBundle\Tests\Command;
 
 use MintwareDe\NativeCronBundle\Command\ListCronJobsCommand;
 use MintwareDe\NativeCronBundle\DependencyInjection\CronJobRegistry;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class ListCronJobsCommandTest extends CommandTestCase
+class ListCronJobsCommandTest extends TestCase
 {
     private ListCronJobsCommand $command;
     private CronJobRegistry $registry;
 
     protected function setUp(): void
     {
-        parent::setUp();
         $this->registry = new CronJobRegistry();
         $this->command = new ListCronJobsCommand($this->registry);
     }

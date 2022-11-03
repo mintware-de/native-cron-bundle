@@ -10,10 +10,11 @@ use MintwareDe\NativeCron\CrontabManager;
 use MintwareDe\NativeCronBundle\Command\InstallCronJobsCommand;
 use MintwareDe\NativeCronBundle\DependencyInjection\CronJobRegistry;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class InstallCronJobsCommandTest extends CommandTestCase
+class InstallCronJobsCommandTest extends TestCase
 {
     private InstallCronJobsCommand $command;
     private CronJobRegistry $registry;
@@ -21,8 +22,6 @@ class InstallCronJobsCommandTest extends CommandTestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->registry = new CronJobRegistry();
         $this->mockCrontabManager = self::createMock(CrontabManager::class);
         $this->command = new InstallCronJobsCommand('/root', $this->registry, $this->mockCrontabManager);
@@ -47,7 +46,7 @@ class InstallCronJobsCommandTest extends CommandTestCase
         $this->mockCrontabManager
             ->expects(self::once())
             ->method('readDropInCrontab')
-            ->with('mw_native_cron_bundle')
+            ->with(InstallCronJobsCommand::DROP_IN_NAME)
             ->willReturn($mockCrontab);
 
         $mockCrontab
@@ -64,7 +63,7 @@ class InstallCronJobsCommandTest extends CommandTestCase
             ->with(
                 self::callback(function ($x) {
                     return $x instanceof CronJobLine
-                        && str_contains($x->getCommand(), PHP_BINARY.' /root/bin/console app:cron:run app_cron')
+                        && str_contains($x->getCommand(), PHP_BINARY.' /root/bin/console mw:cron:run app_cron')
                         && $x->getDateTimeDefinition()->build() === '0 0 * * *';
                 })
             );
@@ -72,7 +71,7 @@ class InstallCronJobsCommandTest extends CommandTestCase
         $this->mockCrontabManager
             ->expects(self::once())
             ->method('writeDropInCrontab')
-            ->with($mockCrontab, 'mw_native_cron_bundle');
+            ->with($mockCrontab, InstallCronJobsCommand::DROP_IN_NAME);
 
         $commandTester = new CommandTester($this->command);
         $commandTester->execute([]);
