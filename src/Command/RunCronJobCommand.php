@@ -42,12 +42,16 @@ class RunCronJobCommand extends Command
         }
 
         $job = $this->registry->getCronJob($name);
-        $command = $this->getApplication()->find($job->getCommand());
+        $command = $this->getApplication()?->find($job->getCommand());
+        if ($command === null) {
+            $io->error('Could not find the command!');
+
+            return Command::FAILURE;
+        }
 
         $input = new ArrayInput($job->getAnnotation()->getArguments());
         $input->setInteractive(false);
 
         return $command->run($input, $io);
     }
-
 }

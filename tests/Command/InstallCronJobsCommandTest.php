@@ -83,5 +83,4 @@ class InstallCronJobsCommandTest extends TestCase
 
         self::assertEquals(Command::SUCCESS, $commandTester->getStatusCode());
     }
-
 }

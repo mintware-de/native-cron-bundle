@@ -63,5 +63,4 @@ class InstallCronJobsCommand extends Command
 
         return Command::SUCCESS;
     }
-
 }

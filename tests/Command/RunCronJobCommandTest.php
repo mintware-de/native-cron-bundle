@@ -17,7 +17,6 @@ class RunCronJobCommandTest extends TestCase
 
     protected function setUp(): void
     {
-
         $this->registry = new CronJobRegistry();
         $this->command = new RunCronJobCommand($this->registry);
     }
