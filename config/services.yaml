@@ -16,5 +16,8 @@ services:
 
   MintwareDe\NativeCron\CrontabManager:
 
+  MintwareDe\NativeCron\Filesystem\CrontabFileLocatorInterface:
+    class: MintwareDe\NativeCronBundle\Filesystem\NoopFileLocator
+
   MintwareDe\NativeCron\Filesystem\FileHandlerInterface:
     class: MintwareDe\NativeCron\Filesystem\FileHandler
