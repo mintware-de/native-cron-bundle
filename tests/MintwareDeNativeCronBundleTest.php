@@ -77,7 +77,7 @@ class MintwareDeNativeCronBundleTest extends TestCase
             ->method('registerAttributeForAutoconfiguration')
             ->with(
                 CronJob::class,
-                self::callback(function ($x) use ($mockChildDefinition, $mockCronJob, $mockReflector) {
+                self::callback(function (callable $x) use ($mockChildDefinition, $mockCronJob, $mockReflector) {
                     $x($mockChildDefinition, $mockCronJob, $mockReflector);
 
                     return true;

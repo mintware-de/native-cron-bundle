@@ -58,6 +58,8 @@ class CronJobRegistry implements \Iterator
         if (!is_array($arguments)) {
             $arguments = [];
         }
+
+        /** @var array<string, mixed> $arguments */
         $this->registeredCronJobs[] = new RegisteredCronJob(
             new CronJob(
                 $name,

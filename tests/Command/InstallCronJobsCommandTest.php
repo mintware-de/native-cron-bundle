@@ -62,11 +62,10 @@ class InstallCronJobsCommandTest extends TestCase
             ->expects(self::once())
             ->method('add')
             ->with(
-                self::callback(function ($x) {
+                self::callback(function (CronJobLine $x) {
                     self::assertEquals('www-data', $x->getUser());
 
-                    return $x instanceof CronJobLine
-                        && str_contains($x->getCommand(), PHP_BINARY.' /root/bin/console mw:cron:run app_cron')
+                    return str_contains($x->getCommand(), PHP_BINARY.' /root/bin/console mw:cron:run app_cron')
                         && $x->getDateTimeDefinition()->build() === '0 0 * * *';
                 })
             );

@@ -39,7 +39,7 @@ class UninstallCronJobsCommandTest extends TestCase
             ->expects(self::once())
             ->method('removeWhere')
             ->with(
-                self::callback(function ($filter) {
+                self::callback(function (callable $filter) {
                     return $filter(new CronJobLine('* * * * * root mw:cron:run', true))
                         && !$filter(new CronJobLine('* * * * * root different', true));
                 })

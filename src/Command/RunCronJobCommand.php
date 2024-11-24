@@ -32,7 +32,8 @@ class RunCronJobCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $name = strval($input->getArgument('name'));
+        /** @var string $name */
+        $name = $input->getArgument('name');
         $io = new SymfonyStyle($input, $output);
 
         if (!$this->registry->hasCronJob($name)) {
